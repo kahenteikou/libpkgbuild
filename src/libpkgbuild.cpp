@@ -1,6 +1,6 @@
 #include "libpkgbuild.hpp"
 std::string trim_before_after(const std::string& srcstr){
-    std::string trim_char=" ";   //remove space
+    std::string trim_char=" \t";   //remove space
     std::size_t poskun=srcstr.find_first_not_of(trim_char);
     if(poskun > srcstr.size()){
         return "";
@@ -8,9 +8,10 @@ std::string trim_before_after(const std::string& srcstr){
     return srcstr.substr(poskun);
 }
 bool start_with(std::string target,std::string prefix){
+    std::string target_cp(target.c_str(),target.length());
     auto szkun=prefix.size();
-    if(target.size() < szkun) return false;
-    return std::equal(std::begin(prefix),std::end(prefix),std::begin(target));
+    if(target_cp.size() < szkun) return false;
+    return std::equal(std::begin(prefix),std::end(prefix),std::begin(target_cp));
 }
 
 std::string replace_strkun(std::string src,std::string from,std::string to){
