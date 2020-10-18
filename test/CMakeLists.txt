@@ -1,0 +1,2 @@
+add_executable(pkgbuild_test main.cpp)
+target_link_libraries(pkgbuild_test pkgbuild)

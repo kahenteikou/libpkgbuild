@@ -1,7 +1,10 @@
 #include "libpkgbuild.hpp"
 std::string trim_before_after(const std::string& srcstr){
     std::string trim_char=" ";   //remove space
-    size_t poskun=srcstr.find_first_not_of(trim_char);
+    std::size_t poskun=srcstr.find_first_not_of(trim_char);
+    if(poskun > srcstr.size()){
+        return "";
+    }
     return srcstr.substr(poskun);
 }
 bool start_with(std::string target,std::string prefix){
@@ -12,7 +15,7 @@ bool start_with(std::string target,std::string prefix){
 
 std::string replace_strkun(std::string src,std::string from,std::string to){
     std::string str_copykun(src.c_str(),src.length());
-    const unsigned int pos=str_copykun.find(from);
+    int pos=str_copykun.find(from);
     const int len=from.length();
     if(pos == std::string::npos || from.empty()) {
         return str_copykun;
@@ -29,7 +32,7 @@ int srcinfo_to_str(std::string srcinfo_filename,PKGBUILD_INFO_STR& return_obj){
     while(std::getline(ifs,buff)){
         work_strline=trim_before_after(buff);
         if(start_with(work_strline,"pkgname")){
-            return_obj.pkgname=replace_strkun(work_strline,"pkgbase = ","");
+            return_obj.pkgname=replace_strkun(work_strline,"pkgname = ","");
         }else
         if(start_with(work_strline,"pkgver")){
             return_obj.pkgver=replace_strkun(work_strline,"pkgver = ","");
