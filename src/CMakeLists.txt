@@ -1,0 +1,1 @@
+ADD_LIBRARY(pkgbuild SHARED libpkgbuild.cpp)
